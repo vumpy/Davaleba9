@@ -1,0 +1,24 @@
+
+
+CC = gcc
+CFLAGS = -Wall
+
+all: any
+.PHONY : all
+
+any: mgetline3.o dv3.o
+	$(CC) $(CFLAGS) -o any mgetline3.o dv3.o
+	
+mgetline3.o : mgetline3.c
+	$(CC) $(CFLAGS) -c -o mgetline3.c mgetline3.o
+	
+dv3.o: dv3.c
+	$(CC) $(CFLAGS) -c -o dv3.c dv3.o
+	
+debug: clean mgetline3.c dv3.c
+	$(CC) $(CFLAGS) -g -o test dv3.c mgetline3.c
+	gdb -tui test
+
+.PHONY: clean
+clean:
+	rm -rf *.o

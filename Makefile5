@@ -1,0 +1,24 @@
+
+
+CC = gcc
+CFLAGS = -Wall
+
+all: stringdex
+.PHONY : all
+
+stringdex: mstringex.o dv5.o
+	$(CC) $(CFLAGS) -o stringdex mstringex.o dv5.o
+	
+mstringex.o : mstringex.c
+	$(CC) $(CFLAGS) -c -o mstringex.c mstringex.o
+	
+dv5.o: dv5.c
+	$(CC) $(CFLAGS) -c -o dv5.c dv5.o
+	
+debug: clean mstringex.c dv5.c
+	$(CC) $(CFLAGS) -g -o test dv5.c mstringex.c
+	gdb -tui test
+
+.PHONY: clean
+clean:
+	rm -rf *.o

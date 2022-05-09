@@ -1,0 +1,21 @@
+
+
+CC = gcc
+CFLAGS = -Wall
+
+all: setbit
+.PHONY : all
+
+setbit: dv4.o
+	$(CC) $(CFLAGS) -o setbit dv4.o
+		
+dv4.o: dv4.c
+	$(CC) $(CFLAGS) -c -o dv4.c dv4.o
+	
+debug: clean dv4.c
+	$(CC) $(CFLAGS) -g -o test dv4.c
+	gdb -tui test
+
+.PHONY: clean
+clean:
+	rm -rf *.o
